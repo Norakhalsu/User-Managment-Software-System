@@ -57,7 +57,7 @@ public class UserService {
     public User CheckUsernameAndPassword(String email, String password) {
         User u=userRepository.findUserByUsernameAndPassword(email, password);
         if(u == null){
-            return null;
+        throw new ApiException("User not found");
         }
         return u;
     }
@@ -77,7 +77,7 @@ public class UserService {
         List<User> userList=userRepository.ListUsersByRole(role);
 
         if(userList == null){
-            return null;
+             throw new ApiException("User not found");
         }
         return userList;
     }
@@ -87,7 +87,7 @@ public class UserService {
    public List<User> SearchAgeOrAbove(int age) {
         List<User> users=userRepository.SearchAgeOrAbove(age);
         if(users == null){
-            return null;
+          throw new ApiException("User not found");
         }
         return users;
    }
