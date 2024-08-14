@@ -61,9 +61,6 @@ public class UserController {
 
   @GetMapping("/login/{username}/{password}")
   public ResponseEntity login(@PathVariable String username, @PathVariable String password) {
-        if(userService.CheckUsernameAndPassword(username,password) == null){
-            return ResponseEntity.status(400).body("Username or password is incorrect");
-        }
         return ResponseEntity.status(200).body(userService.CheckUsernameAndPassword(username,password));
   }
 
@@ -77,20 +74,15 @@ public class UserController {
     @GetMapping("/role/{role}")//Get All users with specific role
     public ResponseEntity getUserByRole(@PathVariable String role) {
         List<User> users = userService.SearchUserByRole(role);
-
-        if(users.isEmpty()){
-            return ResponseEntity.status(400).body("Not Found User with Specific role " );
-        }
         return ResponseEntity.status(200).body(users);
     }
 
     @GetMapping("/age/{age}")//Get All users with specific age or above
     public ResponseEntity getUserByAge(@PathVariable Integer age) {
         List<User> users=userService.SearchAgeOrAbove(age);
-        if(users.isEmpty()){
-            return ResponseEntity.status(400).body("Not Found User with Specific age and above ");
-        }
         return ResponseEntity.status(200).body(users);
     }
+
+    
 
 }
